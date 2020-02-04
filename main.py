@@ -12,7 +12,7 @@ layout = [ [sg.Button('+', disabled=True, key='drag'),
             sg.Text(rd.get_string(), size=(40, 1), font=('Arial', 30), justification='center', pad=(5, 30), key='main_text'), 
             sg.Text(rd.get_cursor(), size=(10, 1), font=('Arial', 10), justification='right', key='idx_text')] ]
 
-window = sg.Window('GRE 1000', layout, keep_on_top = True, no_titlebar=True, alpha_channel=const.alpha, grab_anywhere=True, finalize=True) 
+window = sg.Window('GRE 1000', layout, keep_on_top = True, no_titlebar=True, alpha_channel=const.alpha, location=const.default_window_position, grab_anywhere=True, finalize=True) 
 
 eventQ = queue.Queue()
 def guihandle(event, value):
