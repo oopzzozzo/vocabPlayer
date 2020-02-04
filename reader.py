@@ -29,4 +29,7 @@ class Reader:
     def adjust_freq(self, factor):
         self.words.adj_word('freq', lambda x: x*factor)
 
+    def close(self):
+        self.wordlist.store_cursor()
+
 

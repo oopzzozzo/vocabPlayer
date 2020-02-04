@@ -1,12 +1,13 @@
 import os.path
 import numpy as np
 import json
+import const
 class WordList:
-    def __init__(self, fn='wordlist.json', wordlist=None, *args, **kwargs):
+    def __init__(self, fn=const.default_fn, wordlist=None, *args, **kwargs):
         self.fn = fn
         self.words = []
         self.size = 0
-        self.idx = 0
+        self.idx = self.load_cursor()
         if wordlist is None:
             self.load_words(*args, **kwargs)
         else:
@@ -38,11 +39,19 @@ class WordList:
 
     def adj_word(self, field, op):
         self.words[self.idx][field] = op(self.words[self.idx].get(field, None))
+    def load_cursor(self, fn=".cursor.dat"):
+        if not os.path.exists(fn):
+            return 0
+        with open(fn, "r") as f:
+            return int(next(f))
+
+    def store_cursor(self, fn=".cursor.dat"):
+        with open(fn, "w") as f:
+            f.write(str(self.idx))
     
 class SeqWL(WordList):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.idx = kwargs.get('idx', 0)
 
     def get_word(self):
         return self.words[self.idx]
