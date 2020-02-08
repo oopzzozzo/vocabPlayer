@@ -1,12 +1,18 @@
 from wordlist import *
+import pyttsx3 as tts
 
 class Reader:
     def __init__(self, wl=SeqWL(), idx=0):
         self.wordlist = wl
+        self.speaker = tts.init()
         self.modes = ['word', 'meaning', 'eg']
         self.cnt = len(self.modes)
         self.idx = 0
         self.history = [wl.get_word()]
+
+    def pronounce(self):
+        self.speaker.say(self.history[-1]['word'])
+        self.speaker.runAndWait()
 
     def get_string(self):
         return self.history[-1][self.modes[self.idx]]
